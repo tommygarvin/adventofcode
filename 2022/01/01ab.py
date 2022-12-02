@@ -2,7 +2,6 @@ elf_totals = []                                 # create list to track totals
 
 with open("../input/01.txt", "r") as file:      # open file
     elves = file.read().split("\n\n")           # split by empty newline
-    elf_index = 0                               # track elf index
     for elf in elves:                           # loop through elves
         backpack = elf.split("\n")              # put the elf's items in a list
         backpack = [int(i) for i in backpack]   # convert strings to int
