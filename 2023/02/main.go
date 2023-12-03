@@ -8,7 +8,7 @@ import (
 // menu to select part 1 or part 2
 func main() {
 	for {
-		fmt.Println("===== Advent of Code 2023 Day 01 =====")
+		fmt.Println("===== Advent of Code 2023 Day 02 =====")
 		fmt.Println("1. Part 1")
 		fmt.Println("2. Part 2")
 		fmt.Println("3. Exit")
