@@ -13,7 +13,7 @@ func main() {
 	input := getInput()
 	//log.Println(input)
 	part1(input)
-	//part2(input)
+	part2(input)
 }
 
 func handleError(err error) {
@@ -90,5 +90,48 @@ func part1(input [][]int) {
 	}
 	log.Println(countSafe)
 	err := os.WriteFile("../output/02a.txt", []byte(strconv.Itoa(countSafe)), 0644)
+	handleError(err)
+}
+
+func part2(input [][]int) {
+	var isSafe []bool
+	for _, row := range input {
+		log.Printf("Checking: %v", row)
+
+		var isDampenedSafe []bool
+
+		for i := range len(row) {
+			dampenedValues := make([]int, 0, len(row)-1)
+			dampenedValues = append(dampenedValues, row[:i]...)
+			dampenedValues = append(dampenedValues, row[i+1:]...)
+			log.Printf("Dampened %d: %v", i, dampenedValues)
+			if (slices.IsSorted(dampenedValues) || isSortedDescending(dampenedValues)) && isLevelDifferenceWithinTolerance(dampenedValues) {
+				isDampenedSafe = append(isDampenedSafe, true)
+			} else {
+				isDampenedSafe = append(isDampenedSafe, false)
+			}
+		}
+		log.Printf("Dampened safe: %v", isDampenedSafe)
+
+		for _, value := range isDampenedSafe {
+			if value {
+				isSafe = append(isSafe, true)
+				break
+			} else {
+				isSafe = append(isSafe, false)
+			}
+		}
+	}
+
+	countSafe := 0
+
+	for _, value := range isSafe {
+		if value {
+			countSafe++
+		}
+	}
+
+	log.Println(countSafe)
+	err := os.WriteFile("../output/02b.txt", []byte(strconv.Itoa(countSafe)), 0644)
 	handleError(err)
 }
